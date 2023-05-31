@@ -91,7 +91,7 @@
             <a class="button detail-button" href="students?action=details&id=${student.id}">Details</a>
             <a class="button edit-button" href="students?action=edit&id=${student.id}">Edit</a>
             <a class="button delete-button" href="students?action=delete&id=${student.id}"
-               onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>
+               onclick="return confirm('Are you sure you want to delete this Student?')">Delete</a>
         </td>
         </c:forEach>
 </table>
