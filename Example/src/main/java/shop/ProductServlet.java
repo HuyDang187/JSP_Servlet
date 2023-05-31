@@ -3,7 +3,7 @@ package shop;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-
+import jakarta.servlet.annotation.MultipartConfig;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/products")
+@MultipartConfig
 public class ProductServlet extends HttpServlet {
     private List<Product> productList;
 
@@ -70,8 +71,8 @@ public class ProductServlet extends HttpServlet {
     }
     private void createProduct(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException {
         String name = request.getParameter("productName");
-//        double price = Double.parseDouble(request.getParameter("price"));
-        double price = 10.3;
+        double price = Double.parseDouble(request.getParameter("price"));
+
         int id = productList.size() +1 ;
 
 //        Product newProduct = new Product(id,name,price);
@@ -82,6 +83,7 @@ public class ProductServlet extends HttpServlet {
         String filePath = uploadFile(filePart,fileName,uploadDirectory);
         String fileURL = "images/"+fileName;
         Product newProduct = new Product(id,name,price,fileURL);
+        productList.add(newProduct);
         response.sendRedirect("products");
     }
     private void showEditForm(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
@@ -161,7 +163,7 @@ public class ProductServlet extends HttpServlet {
         String contentDisposition = part.getHeader("content-disposition");
         String[] elements = contentDisposition.split(";");
         for (String element: elements) {
-            if (element.trim().startsWith("fileName")){
+            if (element.trim().startsWith("filename")){
                 return element.substring(element.indexOf("=")+1).trim().replace("\"","");
             }
         }
