@@ -16,6 +16,7 @@
     <p>Product ID : ${product.id}</p>
     <p>Name : ${product.productName}</p>
     <p>Price : ${product.price}</p>
+    <img src="${product.imageUrl}" alt="Image Product">
 </form>
 </body>
 </html>
